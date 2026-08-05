@@ -3,517 +3,636 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jose Mendez Portfolio</title>
-  <style>
-    :root {
-      --ink: #172033;
-      --muted: #5b667a;
-      --line: #d9e0ea;
-      --paper: #ffffff;
-      --wash: #f5f7fb;
-      --green: #16805d;
-      --blue: #1f7ae0;
-    }
+  <meta name="description" content="Jose Mendez — software developer. Live healthcare products: Vital, ONE Nutrition, Dentalpro.">
+  <title>Jose Mendez — Software Developer</title>
+<style>
+  @font-face { font-family: "Archivo"; src: url("assets/fonts/ar400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Archivo"; src: url("assets/fonts/ar600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Archivo"; src: url("assets/fonts/ar800.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url("assets/fonts/ss400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Source Serif 4"; src: url("assets/fonts/ss400i.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Plex Mono"; src: url("assets/fonts/mono500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Plex Mono"; src: url("assets/fonts/mono600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
 
-    * { box-sizing: border-box; }
+  /* Light-only design: the palette is fixed, and the dark-theme override below
+     deliberately restates the same tokens so a viewer theme toggle cannot
+     half-invert the page. */
+  :root {
+    color-scheme: light;
+    --ground: #edf2f0;
+    --surface: #ffffff;
+    --surface-2: #f5f8f7;
+    --ink: #0f1817;
+    --ink-soft: #2f3d3a;
+    --muted: #5a6865;
+    --line: #d8e2de;
+    --line-soft: #e6edea;
+    --accent: #0b6156;
+    --accent-2: #0e8a78;
+    --accent-wash: #e3efeb;
+    --pulse: 14, 138, 120;
+    --shadow: 0 1px 2px rgba(15, 24, 23, .05), 0 18px 40px -22px rgba(15, 24, 23, .35);
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --prose: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
 
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--wash);
-      font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    --ground: #edf2f0;
+    --surface: #ffffff;
+    --surface-2: #f5f8f7;
+    --ink: #0f1817;
+    --ink-soft: #2f3d3a;
+    --muted: #5a6865;
+    --line: #d8e2de;
+    --line-soft: #e6edea;
+    --accent: #0b6156;
+    --accent-2: #0e8a78;
+    --accent-wash: #e3efeb;
+    --pulse: 14, 138, 120;
+    --shadow: 0 1px 2px rgba(15, 24, 23, .05), 0 18px 40px -22px rgba(15, 24, 23, .35);
+  }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  * { box-sizing: border-box; }
 
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 38px 24px 52px;
-    }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    .topbar {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 24px;
-      align-items: start;
-      margin-bottom: 28px;
-      padding-bottom: 22px;
-      border-bottom: 1px solid var(--line);
-    }
+  a { color: inherit; text-decoration: none; }
 
-    .eyebrow {
-      margin: 0 0 8px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
+  a:focus-visible,
+  .shot-link:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
 
-    h1 {
-      margin: 0;
-      font-size: 42px;
-      line-height: 1.05;
-      letter-spacing: 0;
-    }
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 56px 28px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
 
-    .summary {
-      max-width: 720px;
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: 16px;
-    }
+  /* ---------- masthead ---------- */
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 40px;
+    align-items: end;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
 
-    .pill,
-    .action-link {
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 5px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      color: #435066;
-      font-size: 12px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
+  .eyebrow {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
 
-    .action-link {
-      border-color: #c9dcf5;
-      color: var(--blue);
-    }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(44px, 7.4vw, 78px);
+    font-weight: 800;
+    line-height: .94;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+  }
 
-    .portfolio {
-      display: grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap: 22px;
-      align-items: start;
-      padding: 34px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--paper);
-      box-shadow: 0 16px 40px rgba(27, 39, 61, .08);
-    }
+  .intro {
+    max-width: 46ch;
+    margin: 20px 0 0;
+    font-family: var(--prose);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 14px;
-      color: #2a3446;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
+  .intro em { color: var(--ink); font-style: italic; }
 
-    .section-title::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--line);
-    }
+  .readout {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 30px;
+    padding-left: 30px;
+    border-left: 1px solid var(--line);
+  }
 
-    .feature-stack {
-      display: grid;
-      gap: 14px;
-    }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
-    .project-card {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-    }
+  .stat b {
+    font-family: var(--mono);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+  }
 
-    .shot {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      background: #eef2f7;
-      border-bottom: 1px solid var(--line);
-    }
+  .stat span {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-    .body {
-      padding: 16px;
-    }
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
 
-    .project-title {
-      display: inline-flex;
-      margin: 0;
-      color: var(--ink);
-      font-size: 18px;
-      line-height: 1.2;
-      font-weight: 900;
-    }
+  .contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: border-color .18s ease, color .18s ease, transform .18s ease;
+  }
 
-    .project-title:hover {
-      color: var(--blue);
-    }
+  .contact a:hover {
+    border-color: var(--accent-2);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
 
-    .desc {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+  /* ---------- section headers ---------- */
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 12px;
-    }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 3px 8px;
-      border: 1px solid #e1e7ef;
-      border-radius: 999px;
-      color: #475467;
-      background: #f8fafc;
-      font-size: 11px;
-      font-weight: 750;
-    }
+  .section-head h2 {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+  }
 
-    .tag.live {
-      border-color: #ccebdd;
-      color: #126648;
-      background: #eefaf4;
-    }
+  .section-head .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
 
-    .app-download-panel {
-      display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 12px;
-      align-items: center;
-      margin-top: 14px;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #f8fafc;
-    }
+  .section-head .count {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
 
-    .download-qr {
-      display: grid;
-      justify-items: center;
-      min-width: 0;
-    }
+  /* ---------- live products ---------- */
 
-    .download-qr img {
-      width: 54px;
-      height: 54px;
-      padding: 4px;
-      border: 1px solid #e1e7ef;
-      border-radius: 6px;
-      background: #fff;
-    }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
 
-    .app-download-copy {
-      display: grid;
-      gap: 2px;
-      min-width: 0;
-    }
+  .product {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    transition: transform .22s ease, border-color .22s ease;
+  }
 
-    .app-download-copy strong {
-      color: #243044;
-      font-size: 12px;
-      font-weight: 800;
-      line-height: 1.2;
-    }
+  .product:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-2);
+  }
 
-    .app-download-copy span {
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.35;
-    }
+  .shot-link {
+    display: block;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
 
-    .compact-list {
-      display: grid;
-      gap: 0;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-    }
+  .shot {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+  }
 
-    .compact-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 18px;
-      padding: 13px 15px;
-      border-bottom: 1px solid var(--line);
-    }
+  .product-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    flex: 1;
+  }
 
-    .compact-row:last-child {
-      border-bottom: 0;
-    }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
 
-    .compact-row .project-title {
-      font-size: 14px;
-    }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-2);
+    animation: pulse 2.6s ease-out infinite;
+  }
 
-    .compact-row .desc {
-      margin-top: 4px;
-      font-size: 12px;
-    }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--pulse), .5); }
+    70% { box-shadow: 0 0 0 8px rgba(var(--pulse), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--pulse), 0); }
+  }
 
-    .link-type {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
+  .product h3 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.025em;
+    line-height: 1.05;
+  }
 
-    .note {
-      margin: 18px 0 0;
-      color: #667085;
-      font-size: 12px;
-    }
+  .product p {
+    margin: 0;
+    font-family: var(--prose);
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
 
-    @media (max-width: 880px) {
-      .topbar,
-      .portfolio {
-        grid-template-columns: 1fr;
-      }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 2px 0 0;
+    padding: 0;
+    list-style: none;
+  }
 
-      .actions {
-        justify-content: flex-start;
-      }
-    }
+  .facts li {
+    padding: 4px 9px;
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    background: var(--surface-2);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+  }
 
-    @media print {
-      @page {
-        size: letter;
-        margin: .32in;
-      }
+  .visit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--accent);
+  }
 
-      body {
-        background: #fff;
-        font-size: 10px;
-      }
+  .visit .arrow { transition: transform .18s ease; }
+  .product:hover .visit .arrow { transform: translate(2px, -2px); }
 
-      .page {
-        max-width: none;
-        padding: 0;
-      }
+  .qr-strip {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 11px;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    background: var(--surface-2);
+  }
 
-      .topbar {
-        margin-bottom: 12px;
-        padding-bottom: 10px;
-      }
+  .qr-strip img {
+    width: 58px;
+    height: 58px;
+    padding: 4px;
+    border-radius: 3px;
+    background: #fff;
+  }
 
-      h1 {
-        font-size: 30px;
-      }
+  .qr-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
 
-      .summary {
-        margin-top: 8px;
-        font-size: 12px;
-      }
+  .qr-copy b {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
 
-      .action-link {
-        display: none;
-      }
+  .qr-copy span {
+    font-family: var(--prose);
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--muted);
+  }
 
-      .portfolio {
-        grid-template-columns: 1.05fr .95fr;
-        gap: 14px;
-        padding: 14px;
-        box-shadow: none;
-      }
+  /* ---------- repositories ---------- */
 
-      .shot {
-        aspect-ratio: 16 / 7.1;
-      }
+  .repos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+  }
 
-      .body {
-        padding: 8px 10px 9px;
-      }
+  .repo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    padding: 14px 18px 14px 16px;
+    border-bottom: 1px solid var(--line-soft);
+    border-left: 2px solid transparent;
+    transition: background .16s ease, border-left-color .16s ease;
+  }
 
-      .project-card {
-        break-inside: avoid;
-      }
+  .repo:last-child { border-bottom: 0; }
+  .repo:hover { background: var(--surface-2); }
+  .repo.live { border-left-color: var(--accent-2); }
 
-      .feature-stack {
-        gap: 8px;
-      }
+  .repo-name {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
 
-      .compact-row {
-        padding: 6px 10px;
-      }
+  .repo:hover .repo-name { color: var(--accent); }
 
-      .compact-row .project-title {
-        font-size: 12.5px;
-      }
+  .repo-desc {
+    margin: 3px 0 0;
+    font-family: var(--prose);
+    font-size: 14px;
+    color: var(--muted);
+  }
 
-      .compact-row .desc {
-        margin-top: 1px;
-        font-size: 10.5px;
-      }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
 
-      .section-title {
-        margin-bottom: 8px;
-        font-size: 11.5px;
-      }
+  .repo.live .tag { color: var(--accent); }
 
-      .project-title {
-        font-size: 16px;
-      }
+  /* ---------- motion ---------- */
 
-      .desc {
-        margin-top: 5px;
-        font-size: 11.5px;
-      }
+  .rise {
+    animation: rise .6s cubic-bezier(.22, .68, .3, 1) both;
+  }
 
-      .tags {
-        margin-top: 8px;
-      }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
 
-      .app-download-panel {
-        margin-top: 9px;
-        padding: 7px;
-      }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
 
-      .note {
-        margin-top: 10px;
-        font-size: 10.5px;
-      }
+  @media (max-width: 860px) {
+    .masthead { grid-template-columns: 1fr; align-items: start; gap: 28px; }
+    .readout { padding-left: 0; border-left: 0; padding-top: 22px; border-top: 1px solid var(--line); justify-content: start; }
+    .page { padding: 40px 20px 56px; gap: 44px; }
+  }
 
-      .shot,
-      .app-download-panel,
-      .download-qr img,
-      .tag {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-    }
-  </style>
+  @media (max-width: 480px) {
+    .repo { grid-template-columns: 1fr; gap: 6px; align-items: start; }
+  }
+
+  @media print {
+    @page { size: letter; margin: .4in; }
+    body { background: #fff; font-size: 10.5px; }
+    .page { max-width: none; padding: 0; gap: 22px; }
+    h1 { font-size: 38px; }
+    .intro { font-size: 13px; }
+    .product { break-inside: avoid; box-shadow: none; }
+    .shot { aspect-ratio: 16 / 8; }
+    .rise { animation: none; }
+    .dot { animation: none; }
+    .shot, .facts li, .qr-strip, .qr-strip img { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+</style>
 </head>
 <body>
-  <main class="page">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">Software Developer Portfolio</p>
-        <h1>Jose Mendez</h1>
+<main class="page">
+  <header class="masthead rise">
+    <div>
+      <p class="eyebrow">Software developer</p>
+      <h1>Jose Mendez</h1>
+      <p class="intro">I build and ship healthcare software people use every day — appointment scheduling for clinics, day-to-day dental operations, and <em>insurance-covered nutrition care</em> in the US.</p>
+      <div class="contact">
+        <a href="https://github.com/Jose-Manuel18" target="_blank" rel="noreferrer">github.com/Jose-Manuel18</a>
       </div>
-      <div class="actions" aria-label="Portfolio actions and summary">
-        <a class="action-link" href="jose-mendez-portfolio.pdf" download>Download PDF</a>
-        <span class="pill">14 projects</span>
-        <span class="pill">12 public repos</span>
-        <span class="pill">Live-first links</span>
-      </div>
-    </header>
+    </div>
+    <div class="readout">
+      <div class="stat"><b>3</b><span>Live products</span></div>
+      <div class="stat"><b>8</b><span>Public repos</span></div>
+    </div>
+  </header>
 
-    <section class="portfolio" aria-label="Jose Mendez project portfolio">
-      <div>
-        <h2 class="section-title">Featured</h2>
-        <div class="feature-stack">
-          <article class="project-card">
-            <img class="shot" src="assets/vital.png" alt="Vital web app preview">
-            <div class="body">
-              <a class="project-title" href="https://app.vital.do" target="_blank" rel="noreferrer">Vital</a>
-              <p class="desc">Digital appointment scheduling ecosystem for healthcare providers.</p>
-              <div class="tags">
-                <span class="tag live">Live product</span>
-                <span class="tag">Mobile app</span>
-              </div>
-              <div class="app-download-panel" aria-label="Vital mobile app download">
-                <a class="download-qr" href="https://app.vital.do/app-download" target="_blank" rel="noreferrer">
-                  <img src="assets/vital-app-download-qr.png" alt="QR code for Vital mobile app download">
-                </a>
-                <div class="app-download-copy">
-                  <strong>Vital mobile app</strong>
-                  <span>Scan to download; the QR opens the right store for the phone.</span>
-                </div>
-              </div>
+  <section aria-labelledby="production">
+    <div class="section-head">
+      <h2 id="production">In production</h2>
+      <div class="rule"></div>
+      <span class="count">3</span>
+    </div>
+
+    <div class="products">
+      <article class="product rise" style="animation-delay:.06s">
+        <a class="shot-link" href="https://app.vital.do" target="_blank" rel="noreferrer">
+          <img class="shot" src="assets/v.webp" alt="Vital appointment scheduling platform, sign-in screen and mobile app">
+        </a>
+        <div class="product-body">
+          <p class="status"><span class="dot"></span>Live</p>
+          <h3>Vital</h3>
+          <p>Appointment scheduling ecosystem for healthcare providers, serving several clinic networks from one platform.</p>
+          <ul class="facts">
+            <li>Web + mobile</li>
+            <li>Healthcare</li>
+          </ul>
+          <div class="qr-strip">
+            <a href="https://app.vital.do/app-download" target="_blank" rel="noreferrer">
+              <img src="assets/qr.webp" alt="QR code to download the Vital mobile app">
+            </a>
+            <div class="qr-copy">
+              <b>Get the app</b>
+              <span>Scan to open the right store for your phone.</span>
             </div>
-          </article>
-
-          <article class="project-card">
-            <img class="shot" src="assets/dentalpro.png" alt="Dentalpro web app preview">
-            <div class="body">
-              <a class="project-title" href="https://dentalpro.medinet.com.do" target="_blank" rel="noreferrer">Dentalpro</a>
-              <p class="desc">Dental clinic platform for operational web workflows.</p>
-              <div class="tags">
-                <span class="tag live">Live product</span>
-              </div>
-            </div>
-          </article>
+          </div>
+          <a class="visit" href="https://app.vital.do" target="_blank" rel="noreferrer">app.vital.do <span class="arrow">↗</span></a>
         </div>
-      </div>
+      </article>
 
-      <div>
-        <h2 class="section-title">Public Repo Index</h2>
-        <div class="compact-list">
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/full-stack-task-management" target="_blank" rel="noreferrer">full-stack-task-management</a><p class="desc">Full-stack TypeScript task management project.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/reanimated-animations" target="_blank" rel="noreferrer">reanimated-animations</a><p class="desc">React Native Reanimated motion experiments.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://commission-calculator-sandy.vercel.app/" target="_blank" rel="noreferrer">commission-calc</a><p class="desc">Commission calculator for payout scenarios.</p></div>
-            <span class="link-type">Live</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/tap-2-pay" target="_blank" rel="noreferrer">tap-2-pay</a><p class="desc">Payment interaction flow project.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://pricing-ui-jose-manuel18.vercel.app/" target="_blank" rel="noreferrer">pricing-ui</a><p class="desc">Pricing table UI with plan comparison.</p></div>
-            <span class="link-type">Live</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/laravel-movie-webpage" target="_blank" rel="noreferrer">laravel-movie-webpage</a><p class="desc">PHP/Laravel movie webpage project.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/haneke-coding-exercise" target="_blank" rel="noreferrer">haneke-coding-exercise</a><p class="desc">TypeScript coding exercise.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://void-fe-test.vercel.app/valorant" target="_blank" rel="noreferrer">void-fe-test</a><p class="desc">Frontend test with Valorant route.</p></div>
-            <span class="link-type">Live</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://news-app-seven-kappa.vercel.app/feed/General" target="_blank" rel="noreferrer">news-app</a><p class="desc">Categorized news feed application.</p></div>
-            <span class="link-type">Live</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/movie-web-app" target="_blank" rel="noreferrer">movie-web-app</a><p class="desc">Movie web app project.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/movie-app" target="_blank" rel="noreferrer">movie-app</a><p class="desc">TypeScript movie application.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
-          <div class="compact-row">
-            <div><a class="project-title" href="https://github.com/Jose-Manuel18/movie-app-backend" target="_blank" rel="noreferrer">movie-app-backend</a><p class="desc">Backend service for the movie app ecosystem.</p></div>
-            <span class="link-type">GitHub</span>
-          </div>
+      <article class="product rise" style="animation-delay:.12s">
+        <a class="shot-link" href="https://www.onenutrition.us" target="_blank" rel="noreferrer">
+          <img class="shot" src="assets/onenutrition.webp" alt="ONE Nutrition website showing insurance-covered dietitian care">
+        </a>
+        <div class="product-body">
+          <p class="status"><span class="dot"></span>Live</p>
+          <h3>ONE Nutrition</h3>
+          <p>Insurance-covered nutrition care in the US: patients check coverage, get matched to a licensed dietitian, and book a visit the same week.</p>
+          <ul class="facts">
+            <li>Web</li>
+            <li>Health &amp; insurance</li>
+            <li>US market</li>
+          </ul>
+          <a class="visit" href="https://www.onenutrition.us" target="_blank" rel="noreferrer">onenutrition.us <span class="arrow">↗</span></a>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <p class="note">Public repositories verified from GitHub account Jose-Manuel18. Live links were checked before export; entries without a working live page use GitHub.</p>
-  </main>
+      <article class="product rise" style="animation-delay:.18s">
+        <a class="shot-link" href="https://dentalpro.medinet.com.do" target="_blank" rel="noreferrer">
+          <img class="shot" src="assets/d.webp" alt="Dentalpro clinic platform sign-in screen">
+        </a>
+        <div class="product-body">
+          <p class="status"><span class="dot"></span>Live</p>
+          <h3>Dentalpro</h3>
+          <p>Dental clinic platform covering the operational workflows a practice runs on day to day.</p>
+          <ul class="facts">
+            <li>Web</li>
+            <li>Clinic operations</li>
+          </ul>
+          <a class="visit" href="https://dentalpro.medinet.com.do" target="_blank" rel="noreferrer">dentalpro.medinet.com.do <span class="arrow">↗</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="repos">
+    <div class="section-head">
+      <h2 id="repos">Repositories</h2>
+      <div class="rule"></div>
+      <span class="count">8</span>
+    </div>
+
+    <ul class="repos rise" style="animation-delay:.24s">
+      <li class="repo live">
+        <div>
+          <a class="repo-name" href="https://commission-calculator-sandy.vercel.app/" target="_blank" rel="noreferrer">commission-calc</a>
+          <p class="repo-desc">Commission calculator for payout scenarios.</p>
+        </div>
+        <span class="tag">Live demo</span>
+      </li>
+      <li class="repo live">
+        <div>
+          <a class="repo-name" href="https://pricing-ui-jose-manuel18.vercel.app/" target="_blank" rel="noreferrer">pricing-ui</a>
+          <p class="repo-desc">Pricing table UI with plan comparison.</p>
+        </div>
+        <span class="tag">Live demo</span>
+      </li>
+      <li class="repo live">
+        <div>
+          <a class="repo-name" href="https://news-app-seven-kappa.vercel.app/feed/General" target="_blank" rel="noreferrer">news-app</a>
+          <p class="repo-desc">Categorized news feed application.</p>
+        </div>
+        <span class="tag">Live demo</span>
+      </li>
+      <li class="repo">
+        <div>
+          <a class="repo-name" href="https://github.com/Jose-Manuel18/full-stack-task-management" target="_blank" rel="noreferrer">full-stack-task-management</a>
+          <p class="repo-desc">Full-stack TypeScript task management project.</p>
+        </div>
+        <span class="tag">Source</span>
+      </li>
+      <li class="repo">
+        <div>
+          <a class="repo-name" href="https://github.com/Jose-Manuel18/haneke-coding-exercise" target="_blank" rel="noreferrer">haneke-coding-exercise</a>
+          <p class="repo-desc">TypeScript coding exercise.</p>
+        </div>
+        <span class="tag">Source</span>
+      </li>
+      <li class="repo">
+        <div>
+          <a class="repo-name" href="https://github.com/Jose-Manuel18/movie-web-app" target="_blank" rel="noreferrer">movie-web-app</a>
+          <p class="repo-desc">Movie web app project.</p>
+        </div>
+        <span class="tag">Source</span>
+      </li>
+      <li class="repo">
+        <div>
+          <a class="repo-name" href="https://github.com/Jose-Manuel18/movie-app" target="_blank" rel="noreferrer">movie-app</a>
+          <p class="repo-desc">TypeScript movie application.</p>
+        </div>
+        <span class="tag">Source</span>
+      </li>
+      <li class="repo">
+        <div>
+          <a class="repo-name" href="https://github.com/Jose-Manuel18/movie-app-backend" target="_blank" rel="noreferrer">movie-app-backend</a>
+          <p class="repo-desc">Backend service for the movie app ecosystem.</p>
+        </div>
+        <span class="tag">Source</span>
+      </li>
+    </ul>
+  </section>
+</main>
 </body>
 </html>
